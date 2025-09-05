@@ -17,10 +17,21 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setMessage('');
+
+    // Validation
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters long.');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
     try {
-      const res = await fetch(`/api/v1/user/password/reset/${token}`, {
+      const res = await fetch(`http://localhost:4000/api/v1/user/password/reset/${token}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -28,8 +39,8 @@ const ResetPassword = () => {
         body: JSON.stringify({ password, confirmPassword }),
       });
       const data = await res.json();
-      if (res.ok) {
-        setMessage(data.message || 'Password reset successfully.');
+      if (res.ok && data.success) {
+        setMessage(data.message || 'Reset Password Successfully.');
       } else {
         setMessage(data.message || 'Failed to reset password.');
       }
