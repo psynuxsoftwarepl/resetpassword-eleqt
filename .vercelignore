@@ -1,0 +1,5 @@
+# Vercel Ignore Build Step
+# Prevents Vercel from building if only these files change
+.vercel
+node_modules
+*.log
