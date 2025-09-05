@@ -31,7 +31,7 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:4000/api/v1/user/password/reset/${token}`, {
+      const res = await fetch(`https://backend-6q56.onrender.com/api/v1/user/password/reset/${token}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
